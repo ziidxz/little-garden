@@ -561,7 +561,11 @@ button:focus-visible {
   position: absolute;
   z-index: 4;
   display: block;
+  width: auto;
+  height: auto;
   pointer-events: none;
+  aspect-ratio: 1;
+  object-fit: contain;
   filter: drop-shadow(0 10px 14px rgba(34, 56, 42, 0.16));
 }
 
