@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>font debug</title>
+  <link rel="stylesheet" href="styles.css?v=4">
+  <style>
+    body { padding: 32px; background: #fff; color: #111; font-family: monospace; }
+    h2 { max-width: none !important; font-size: 48px !important; color: #111 !important; }
+    .note { max-width: 500px; margin-top: 20px; }
+    pre { font-size: 16px; white-space: pre-wrap; background: #f4f4f4; padding: 16px; }
+  </style>
+</head>
+<body>
+  <h2>a few of my <span class="hand" id="h">favorite</span> things</h2>
+  <article class="note"><p id="p">the way you laugh at your own jokes</p></article>
+  <p class="notes-foot hand" id="f">list subject to change</p>
+  <pre id="out">measuring…</pre>
+  <script>
+    const report = () => {
+      const rows = ["h", "p", "f"].map((id) => {
+        const el = document.getElementById(id);
+        const cs = getComputedStyle(el);
+        return `${id}: family=${cs.fontFamily} | size=${cs.fontSize} | transform=${cs.transform} | color=${cs.color}`;
+      });
+      const loaded = [...document.fonts].map((f) => `${f.family} ${f.weight} ${f.status}`);
+      document.getElementById("out").textContent = rows.join("\n") + "\n\nCaveat check: " + document.fonts.check("16px Caveat") + "\n\n" + loaded.join("\n");
+    };
+    report();
+    document.fonts.ready.then(report);
+    setTimeout(report, 1500);
+  </script>
+</body>
+</html>
